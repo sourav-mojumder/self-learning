@@ -7,7 +7,7 @@ public class DutchFlag2 {
      * extreme right > pivot
      * in between == pivot
      * */
-    private static void DNF(int[] arr, int pivot){
+    private static void DNF(int[] arr, int  pivot){
         int low =0, mid =0, high = arr.length -1;
 
         while( mid <= high){
