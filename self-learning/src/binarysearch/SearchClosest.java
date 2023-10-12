@@ -38,3 +38,4 @@ public class SearchClosest {
         System.out.println(findClosestToTarget(arr, 7));
     }
 }
+
