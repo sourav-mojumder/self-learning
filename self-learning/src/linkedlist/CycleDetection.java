@@ -1,4 +1,6 @@
-package arrays;
+package linkedlist;
+
+import linkedlist.LinkedListNode;
 
 public class CycleDetection {
     public static boolean detectCycle(LinkedListNode head) {
