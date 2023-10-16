@@ -2,50 +2,34 @@ package linkedlist;
 
 import java.util.List;
 
+
 public class ReorderList {
+    private ListNode left;
+    private int size = 0;
 
-    public static LinkedListNode reorderList(LinkedListNode head) {
+    private void reOrderListHelper(ListNode right, int floor) {
 
-        LinkedListNode middlePoint = getMiddlePointInLinkedList(head);
-        LinkedListNode reversedHead = getLinkedListReversed(middlePoint);
-        mergeTwoLinkedList(head, reversedHead);
-        return head;
+        if (right == null) return;
+        reOrderListHelper(right.next, floor + 1);
+
+        if (floor > size / 2) {
+
+            right.next = left.next;
+            left.next = right;
+            left = right.next;
+        } else if (floor == size / 2) {
+            right.next = null;
+        }
     }
 
-
-    private static LinkedListNode mergeTwoLinkedList(LinkedListNode first, LinkedListNode second) {
-        LinkedListNode temp = first;
-        while (second.next != null) {
-            temp = temp.next;
-            first.next = second;
-            second = second.next;
-            first.next.next = temp;
-            first = first.next.next;
-        }
-        return first;
+    private int getSize(ListNode head) {
+        if (head == null) return 0;
+        return getSize(head.next) + 1;
     }
 
-    private static LinkedListNode getLinkedListReversed(LinkedListNode head) {
-        LinkedListNode previous = null;
-        LinkedListNode current = head;
-        LinkedListNode next = current.next;
-        while (current != null) {
-            current.next = previous;
-            previous = current;
-            current = next;
-        }
-        return previous;
-    }
-
-    private static LinkedListNode getMiddlePointInLinkedList(LinkedListNode head) {
-        LinkedListNode fast = head;
-        LinkedListNode slow = head;
-        int counter = 0;
-        while (fast != null && fast.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
-            counter++;
-        }
-        return counter % 2 == 0 ? slow : slow.next;
+    public void reorderList(ListNode head) {
+        left = head;
+        this.size = getSize(head);
+        reOrderListHelper(head, 0);
     }
 }
